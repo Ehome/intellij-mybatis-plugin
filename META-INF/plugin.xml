@@ -10,6 +10,10 @@
       ]]></description>
 
     <change-notes><![CDATA[
+      <h4>2.32</h4>
+      <ul>
+          <li>Fix bugs</li>
+      </ul>
       <h4>2.31</h4>
       <ul>
           <li>Commit mybatis mapper as spring bean using idea api</li>
