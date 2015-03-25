@@ -2,12 +2,13 @@ package com.seventh7.mybatis.generate;
 
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
-import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
+import com.intellij.codeInsight.hint.HintManager;
+import com.intellij.codeInsight.hint.HintUtil;
 import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiClass;
@@ -16,6 +17,8 @@ import com.intellij.psi.PsiPrimitiveType;
 import com.intellij.psi.PsiType;
 import com.intellij.psi.impl.source.PsiClassReferenceType;
 import com.intellij.psi.xml.XmlTag;
+import com.intellij.ui.HyperlinkLabel;
+import com.intellij.ui.awt.RelativePoint;
 import com.intellij.util.CommonProcessors;
 import com.seventh7.mybatis.dom.model.GroupTwo;
 import com.seventh7.mybatis.dom.model.Mapper;
@@ -30,9 +33,10 @@ import com.seventh7.mybatis.util.JavaUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+
+import javax.swing.*;
 
 /**
  * @author yanglin
@@ -139,19 +143,13 @@ public abstract class StatementGenerator {
     final List<Mapper> mappers = Lists.newArrayList(processor.getResults());
     if (1 == mappers.size()) {
       setupTag(method, Iterables.getOnlyElement(mappers, null), scroll);
-    } else if (mappers.size() > 1) {
-      Collection<String> paths = Collections2.transform(mappers, FUN);
-      UiComponentFacade.getInstance(method.getProject()).showListPopup("Choose target mapper xml to generate", new ListSelectionListener() {
-        @Override
-        public void selected(int index) {
-          setupTag(method, mappers.get(index), scroll);
-        }
-
-        @Override
-        public boolean isWriteAction() {
-          return true;
-        }
-      }, paths.toArray(new String[paths.size()]));
+    } else {
+      final HyperlinkLabel link = new HyperlinkLabel("");
+      final JLabel label = new JLabel("Multi mapper with same namespace found");
+      label.setBorder(HintUtil.createHintBorder());
+      label.setBackground(HintUtil.INFORMATION_COLOR);
+      label.setOpaque(true);
+      HintManager.getInstance().showHint(label, RelativePoint.getCenterOf(link), HintManager.HIDE_BY_ANY_KEY | HintManager.HIDE_BY_TEXT_CHANGE, -1);
     }
   }
 
