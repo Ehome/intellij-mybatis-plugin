@@ -1,3 +1,9 @@
+# Ad - UI设计
+
+http://www.imumi.cn
+
+联系时请注明Mybatis插件
+
 # Ad - 强势推荐
 
 翻墙利器: http://honx.in/i/VJ6-U86vD0s1XqbE  
