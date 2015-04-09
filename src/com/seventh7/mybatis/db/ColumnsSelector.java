@@ -31,7 +31,7 @@ public class ColumnsSelector {
     if (defaultDataSource == null) {
       selectDataSourceAndApply(listener, dataSourceManager, uiFacade);
     } else {
-      selectTableAndApply(uiFacade, defaultDataSource.getTables(), listener);
+      selectTableAndApply(uiFacade, (List<DatabaseTableData>) defaultDataSource.getTables(), listener);
     }
   }
 
@@ -43,7 +43,7 @@ public class ColumnsSelector {
                          new ListSelectionItemListener<DataSource>() {
                            @Override public void apply(DataSource dataSource) {
                              MybatisSetting.getInstance().setDefaultDataSourceId(dataSource.getUniqueId());
-                             selectTableAndApply(uiFacade, dataSource.getTables(), listener);
+                             selectTableAndApply(uiFacade, (List<DatabaseTableData>) dataSource.getTables(), listener);
                            }
                          }, new Function<DataSource, String>() {
           @Override public String apply(DataSource dataSource) {
