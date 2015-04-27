@@ -1,5 +1,6 @@
 package com.seventh7.mybatis.xml;
 
+import com.intellij.lang.Language;
 import com.intellij.lang.injection.MultiHostInjector;
 import com.intellij.lang.injection.MultiHostRegistrar;
 import com.intellij.openapi.util.TextRange;
@@ -8,7 +9,6 @@ import com.intellij.psi.PsiLanguageInjectionHost;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.psi.xml.XmlTag;
 import com.intellij.psi.xml.XmlText;
-import com.intellij.sql.dialects.generic.GenericDialect;
 import com.intellij.util.xml.DomElement;
 import com.intellij.util.xml.DomUtil;
 import com.seventh7.mybatis.dom.model.Delete;
@@ -39,7 +39,7 @@ public class SqlLanguageInjector implements MultiHostInjector {
         if (!isSupportedType(domElement)) {
             return;
         }
-        registrar.startInjecting(GenericDialect.INSTANCE)
+        registrar.startInjecting(Language.ANY)
                  .addPlace(null, null, (PsiLanguageInjectionHost) context, TextRange.create(0, context.getTextLength()));
     }
 
