@@ -15,6 +15,7 @@ import com.seventh7.mybatis.dom.model.Delete;
 import com.seventh7.mybatis.dom.model.Insert;
 import com.seventh7.mybatis.dom.model.Select;
 import com.seventh7.mybatis.dom.model.Update;
+import com.intellij.sql.dialects.generic.GenericDialect;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -39,7 +40,7 @@ public class SqlLanguageInjector implements MultiHostInjector {
         if (!isSupportedType(domElement)) {
             return;
         }
-        registrar.startInjecting(Language.ANY)
+        registrar.startInjecting(GenericDialect.INSTANCE)
                  .addPlace(null, null, (PsiLanguageInjectionHost) context, TextRange.create(0, context.getTextLength()));
     }
 
