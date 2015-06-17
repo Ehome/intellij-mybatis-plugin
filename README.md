@@ -2,7 +2,8 @@
 
 #Download
 
-* You may directly install [dist](https://github.com/lizhanhui/intellij-mybatis-plugin/blob/fix/intellij-mybatis-plugin.jar) to use.
+* You may directly install https://github.com/Chris-V/intellij-mybatis-plugin/blob/master/intellij-mybatis-plugin.jar
+* Some fixes are from lizhanhui. You can see the repository here https://github.com/lizhanhui/intellij-mybatis-plugin/
 * Original non-free version from seventh7 may be downloaded from http://plugins.jetbrains.com/plugin/7293
 
 # Features
