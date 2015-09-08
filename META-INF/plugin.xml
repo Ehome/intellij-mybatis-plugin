@@ -26,7 +26,7 @@
       ]]>
     </change-notes>
 
-    <idea-version since-build="141.177"/>
+    <idea-version since-build="142.4465"/>
     <depends optional="false">com.intellij.spring</depends>
     <depends optional="false">com.intellij.database</depends>
     <extensions defaultExtensionNs="com.intellij">

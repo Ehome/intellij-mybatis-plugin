@@ -1,6 +1,7 @@
 package com.seventh7.mybatis.generate;
 
 import com.intellij.database.dataSource.DatabaseTableFieldData;
+import com.intellij.database.model.DasColumn;
 import com.intellij.psi.xml.XmlElement;
 import com.seventh7.mybatis.dom.model.GroupFour;
 import com.seventh7.mybatis.dom.model.PropertyGroup;
@@ -11,6 +12,7 @@ import org.apache.commons.lang.WordUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
+import java.util.Set;
 
 /**
  * @author yanglin
@@ -28,7 +30,9 @@ public class PropertyGenerator {
 
     PropertyGroup property;
     for (DatabaseTableFieldData column : columns) {
-      if (column.isPrimary()) {
+      Set<DasColumn.Attribute> attrs = column.getTable().getColumnAttrs(column);
+      boolean pk = attrs.contains(DasColumn.Attribute.PRIMARY_KEY);
+      if (pk) {
         property = groupFour.addId();
       } else {
         property = groupFour.addResult();
