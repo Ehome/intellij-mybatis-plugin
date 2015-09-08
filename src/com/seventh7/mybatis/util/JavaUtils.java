@@ -1,14 +1,24 @@
 package com.seventh7.mybatis.util;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
-
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiAnnotation;
 import com.intellij.psi.PsiAnnotationMemberValue;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiField;
 import com.intellij.psi.PsiImportList;
 import com.intellij.psi.PsiImportStatement;
 import com.intellij.psi.PsiJavaFile;
@@ -16,20 +26,11 @@ import com.intellij.psi.PsiMethod;
 import com.intellij.psi.PsiModifierList;
 import com.intellij.psi.PsiModifierListOwner;
 import com.intellij.psi.PsiParameter;
+import com.intellij.psi.PsiReference;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.seventh7.mybatis.annotation.Annotation;
 import com.seventh7.mybatis.dom.model.IdDomElement;
-
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
 
 /**
  * @author yanglin
@@ -121,11 +122,42 @@ public final class JavaUtils {
   }
 
   public static Optional<String> getAnnotationValueText(@NotNull PsiModifierListOwner target, @NotNull Annotation annotation) {
-    Optional<PsiAnnotationMemberValue> annotationValue = getAnnotationValue(target, annotation);
-    return annotationValue.isPresent() ? Optional.of(annotationValue.get().getText().replaceAll("\"", "")) : Optional.<String>absent();
+      Optional<PsiAnnotationMemberValue> annotationValue = getAnnotationValue(target, annotation);
+
+      if (annotationValue.isPresent()) {
+          PsiAnnotationMemberValue memberValue = annotationValue.get();
+          String text = memberValue.getText();
+          PsiReference reference = memberValue.getReference();
+
+          if (reference != null) {
+              Optional<String> referenceValue = resolveReferenceValue(reference);
+
+              if (referenceValue.isPresent()) {
+                  text = referenceValue.get();
+              }
+          }
+
+          return Optional.of(text.replaceAll("\"", ""));
+      } else {
+          return Optional.absent();
+      }
   }
 
-  public static boolean isAnyAnnotationPresent(@NotNull PsiModifierListOwner target, @NotNull Set<Annotation> annotations) {
+    private static Optional<String> resolveReferenceValue(PsiReference reference) {
+        PsiElement referenceElement = reference.resolve();
+        if (referenceElement instanceof PsiField) {
+            PsiField field = (PsiField) referenceElement;
+            Optional<Object> value = Optional.fromNullable(field.computeConstantValue());
+
+            if (value.isPresent()) {
+                return Optional.of(String.valueOf(value.get()));
+            }
+        }
+
+        return Optional.absent();
+    }
+
+    public static boolean isAnyAnnotationPresent(@NotNull PsiModifierListOwner target, @NotNull Set<Annotation> annotations) {
     for (Annotation annotation : annotations) {
       if (isAnnotationPresent(target, annotation)) {
         return true;

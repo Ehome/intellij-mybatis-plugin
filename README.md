@@ -1,20 +1,10 @@
-# Ad - UI设计
-
-http://www.imumi.cn
-
-联系时请注明Mybatis插件
-
-# Ad - 强势推荐
-
-翻墙利器: http://honx.in/i/VJ6-U86vD0s1XqbE  
-
-# Supported By
-
-![Thanks to the support of JetBrains](http://www.jetbrains.com/company/docs/logo_jetbrains.png)
+# This fork is compatible with latest IntelliJ Idea and it's free!
 
 #Download
 
-* http://plugins.jetbrains.com/plugin/7293
+* You may directly install https://github.com/Chris-V/intellij-mybatis-plugin/blob/master/intellij-mybatis-plugin.jar
+* Some fixes are from lizhanhui. You can see the repository here https://github.com/lizhanhui/intellij-mybatis-plugin/
+* Original non-free version from seventh7 may be downloaded from http://plugins.jetbrains.com/plugin/7293
 
 # Features
 
@@ -45,3 +35,8 @@ http://www.imumi.cn
     * Declaration of mapper interface、method or parameter
 * Shortcut: Option + Enter(Mac) | Alt + Enter(Windows)
 * To generate statement quickly, you can provide some method generating models with "Idea Setting" -> "Mybatis"
+
+
+# Contribute
+
+1. You are very welcome to file a bug report in Github Issues tab. Pull request, for sure, is sincerely appreciated. 

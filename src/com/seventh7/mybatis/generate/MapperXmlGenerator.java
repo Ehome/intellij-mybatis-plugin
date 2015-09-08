@@ -81,7 +81,7 @@ public final class MapperXmlGenerator {
     UiComponentFacade uiComponentFacade = UiComponentFacade.getInstance(project);
     uiComponentFacade.showListPopupWithSingleClickable("Choose folder",
                                                        popupListener,
-                                                       "Choose another",
+                                                       "Choose another folder",
                                                        getChooseFolderListener(clazz),
                                                        getPathTextForShown(project, keys, pathMap));
   }

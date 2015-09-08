@@ -30,6 +30,7 @@ import com.seventh7.mybatis.dom.model.TypeAlias;
 import com.seventh7.mybatis.dom.model.TypeAliases;
 import com.seventh7.mybatis.service.JavaService;
 
+import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -223,7 +224,7 @@ public final class MapperUtils {
       return Collections.emptyList();
     }
     final String elementName = ElementPresentationManager.getElementName(element);
-    if (StringUtil.isEmpty(elementName)) {
+    if (StringUtils.isBlank(elementName)) {
       return Collections.emptyList();
     }
     List<? extends DomElement> identitySiblings = DomUtil.getIdentitySiblings(element);
